@@ -1,6 +1,8 @@
 Dockerfile
 .gitignore
+.git
 readme.md
+requirements.txt
 .idea
 *.pyc
 .vscode

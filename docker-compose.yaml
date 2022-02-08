@@ -25,6 +25,8 @@ services:
       - db_network
     env_file:
       - ./envs/.env.db
+    ports:
+      - "5434:5432"
   redis:
     image: redis:alpine
     ports:

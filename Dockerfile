@@ -7,7 +7,8 @@ ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 
 COPY Pipfile Pipfile.lock ./
-RUN pip install pipenv && pipenv install --system && pipenv install flake8
+RUN pip install pipenv && pipenv install --system
+RUN pip install flake8 && mkdir -p ./docs/Flake8
 
 COPY . ./
 

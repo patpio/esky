@@ -1,2 +1,6 @@
 .idea
 *.pyc
+.vscode
+db.sqlite3
+.coverage
+.pytest_cache

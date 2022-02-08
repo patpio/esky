@@ -1,0 +1,48 @@
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - .:/code/
+      - static_volume:/code/staticfiles
+    networks:
+      - web_network
+      - db_network
+      - cache_network
+    ports:
+      - 8000:8000
+    env_file:
+      - ./envs/.env
+    depends_on:
+      - db
+    restart: "on-failure"
+  db:
+    image: library/postgres:14-alpine
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    networks:
+      - db_network
+    env_file:
+      - ./envs/.env.db
+  redis:
+    image: redis:alpine
+    ports:
+      - "6379:6379"
+    volumes:
+      - redisdata:/data
+    networks:
+      - cache_network
+
+volumes:
+  postgres_data:
+  static_volume:
+  redisdata:
+
+networks:
+  web_network:
+    driver: bridge
+  db_network:
+    driver: bridge
+  cache_network:
+    driver: bridge

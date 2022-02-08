@@ -1,0 +1,9 @@
+Dockerfile
+.gitignore
+readme.md
+.idea
+*.pyc
+.vscode
+staticfiles
+.coverage
+.pytest_cache

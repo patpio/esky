@@ -45,6 +45,7 @@ INSTALLED_APPS = [
 
     # Local
     'users.apps.UsersConfig',
+    'search.apps.SearchConfig',
 ]
 
 MIDDLEWARE = [

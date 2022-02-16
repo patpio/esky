@@ -1,5 +1,3 @@
-import time
-
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.chrome.service import Service
@@ -18,8 +16,8 @@ departure_type = 'ap'
 departure = 'krk'
 arrival_type = 'ap'
 arrival = 'agp'
-departure_date = '2022-02-17'
-arrival_date = '2022-02-20'
+departure_date = '2022-02-26'
+arrival_date = '2022-03-06'
 flight_standard = 'economy'
 pax_adult = '1'
 pax_young = '0'
@@ -30,19 +28,17 @@ url = f'https://www.esky.pl/flights/select/{trip_type}/{departure_type}/{departu
       f'?departureDate={departure_date}&returnDate={arrival_date}&pa={pax_adult}&py={pax_young}&pc={pax_children}&pi={pax_infant}&sc={flight_standard}'
 
 options = Options()
-options.headless = True
+# options.headless = True
 
 service = Service('./drivers/chromedriver')
 service.start()
 driver = webdriver.Remote(service.service_url, options=options)
-# driver.implicitly_wait(10)
-wait = WebDriverWait(driver, 10)
 
 driver.get(url)
 
-cookie_down(driver)
+wait = WebDriverWait(driver, 20)
 
-# time.sleep(30)
+cookie_down(driver)
 
 
 # def select_progress_bar(driver_):

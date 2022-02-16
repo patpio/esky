@@ -54,21 +54,13 @@ def get_results(departure, arrival, departure_date, return_date, trip_type='roun
     url = f'https://www.esky.pl/flights/select/{trip_type}/{departure_type}/{departure}/{arrival_type}/{arrival}' \
           f'?departureDate={departure_date}&returnDate={return_date}&pa={pa}&py={py}&pc={pc}&pi={pi}&sc={flight_standard}'
 
-    options = Options()
-    options.headless = True
+    with driver_setup(headless=False) as driver:
+        driver.get(url)
+        wait = WebDriverWait(driver, 30)
 
-    service = Service('./drivers/chromedriver')
-    service.start()
-    driver = webdriver.Remote(service.service_url, options=options)
+        time.sleep(3)
+        cookie_down(driver)
 
-    driver.get(url)
-
-    wait = WebDriverWait(driver, 30)
-
-    time.sleep(3)
-    cookie_down(driver)
-
-    try:
         wait.until(ec.presence_of_element_located((By.CSS_SELECTOR, '.badge .content')))
         time.sleep(3)
 
@@ -85,11 +77,6 @@ def get_results(departure, arrival, departure_date, return_date, trip_type='roun
             results.append(result)
 
         return results
-
-    except TimeoutException:
-        return 'Service overloaded, please try later.'
-    finally:
-        driver.close()
 
 
 data = get_results('krk', 'agp', '2022-02-26', '2022-03-06')
